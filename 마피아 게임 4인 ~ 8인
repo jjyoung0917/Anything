@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+int main() {
+    int player;
+    cout << "플레이할 인원은 몇 명입니까?\n";
+    cin >> player;
+    if(player < 4 || player > 8){
+        cout << "플레이할 인원은 4 ~ 8명만 가능합니다.\n";
+        return 0;
+    }
+    cout << player << "명\n";
+    
+    int arr[8] = {0, };
+    char job[8][10];
+    
+    srand(time(NULL));
+	int random = 0;
+    for(int i = 0; i<player; i++){
+        random = rand()%player;
+        arr[i] = random;
+        for(int j = 0; j<i; j++){
+            if(arr[i] == arr[j])
+                i--;
+        }
+    }
+    
+    cout << "\n";
+    for(int i = 0; i<player; i++){
+        if(i<2)
+            strcpy(job[arr[i]], "Mafia");
+        else if(i==2)
+            strcpy(job[arr[i]], "Police");
+        else if(i==3)
+            strcpy(job[arr[i]], "Doctor");
+        else
+            strcpy(job[arr[i]], "Citizen");
+        
+    }
+    
+    for(int i = 0; i<player; i++){
+        cout << i << " : " << job[i] << "\n";
+    }
+    
+    return 0;
+}
